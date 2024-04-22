@@ -20,7 +20,7 @@
 		"ramsey/uuid": "^4.7"
 	},
 	"require-dev": {
-		"bombenprodukt/php-cs-fixer-config": "^1.0",
+		"bombenprodukt/php-cs-fixer-config": "^2.0",
 		"ergebnis/composer-normalize": "^2.35",
 		"friendsofphp/php-cs-fixer": "^3.15",
 		"pestphp/pest": "^2.0",
