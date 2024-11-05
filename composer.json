@@ -1,0 +1,61 @@
+{
+	"name": "basecodeoy/typeid",
+	"description": "A package to easily make use of TypeID with PHP.",
+	"license": "MIT",
+	"keywords": [
+		"BaseCode Oy",
+		"laravel",
+		"typeid"
+	],
+	"authors": [
+		{
+			"name": "Brian Faust",
+			"email": "hello@basecode.sh",
+			"role": "Developer"
+		}
+	],
+	"homepage": "https://github.com/basecodeoy/typeid",
+	"require": {
+		"php": "^8.2",
+		"ramsey/uuid": "^4.7"
+	},
+	"require-dev": {
+		"basecodeoy/php-cs-fixer-config": "^0.0.1",
+		"ergebnis/composer-normalize": "^2.35",
+		"friendsofphp/php-cs-fixer": "^3.15",
+		"pestphp/pest": "^2.0",
+		"pestphp/pest-plugin-watch": "^2.0",
+		"phpstan/extension-installer": "^1.1",
+		"phpstan/phpstan-deprecation-rules": "^1.0",
+		"phpstan/phpstan-phpunit": "^1.0",
+		"phpstan/phpstan-strict-rules": "^1.5",
+		"symfony/yaml": "^6.3"
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"autoload": {
+		"psr-4": {
+			"BaseCodeOy\\TypeId\\": "src"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Tests\\": "tests"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"pestphp/pest-plugin": true,
+			"phpstan/extension-installer": true,
+			"ergebnis/composer-normalize": true,
+			"infection/extension-installer": true
+		},
+		"sort-packages": true
+	},
+	"scripts": {
+		"analyse": "vendor/bin/phpstan analyse",
+		"format": "vendor/bin/php-cs-fixer fix",
+		"test": "vendor/bin/pest",
+		"test-coverage": "vendor/bin/pest --coverage"
+	}
+}
