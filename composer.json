@@ -1,0 +1,53 @@
+{
+	"name": "basecodeoy/typeid",
+	"description": "A package to easily make use of TypeID with PHP.",
+	"license": "MIT",
+	"keywords": [
+		"BaseCode Oy",
+		"laravel",
+		"typeid"
+	],
+	"authors": [
+		{
+			"name": "Brian Faust",
+			"email": "hello@basecode.sh",
+			"role": "Developer"
+		}
+	],
+	"homepage": "https://github.com/basecodeoy/typeid",
+	"require": {
+		"php": "^8.3",
+		"ramsey/uuid": "^4.7.6"
+	},
+	"require-dev": {
+		"basecodeoy/standards": "^1.0.5",
+		"symfony/yaml": "^7.1.6"
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"autoload": {
+		"psr-4": {
+			"BaseCodeOy\\TypeId\\": "src"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Tests\\": "tests"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"ergebnis/composer-normalize": true,
+			"infection/extension-installer": true,
+			"pestphp/pest-plugin": true,
+			"phpstan/extension-installer": true
+		},
+		"sort-packages": true
+	},
+	"scripts": {
+		"analyse": "vendor/bin/phpstan analyse",
+		"format": "vendor/bin/php-cs-fixer fix",
+		"test": "vendor/bin/pest",
+		"test-coverage": "vendor/bin/pest --coverage"
+	}
+}
