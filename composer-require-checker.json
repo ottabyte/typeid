@@ -1,0 +1,13 @@
+{
+    "symbol-whitelist": [
+        "array",
+        "bool",
+        "false",
+        "int",
+        "null",
+        "self",
+        "string",
+        "true",
+        "Illuminate\\Contracts\\Support\\Arrayable"
+    ]
+}

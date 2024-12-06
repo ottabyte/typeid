@@ -1,0 +1,31 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Cannot call method in\\(\\) on iterable\\<SplFileInfo\\>\\.$#"
+			count: 1
+			path: .php-cs-fixer.php
+
+		-
+			message: "#^Method BaseCodeOy\\\\TypeId\\\\Base32\\:\\:decode\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Base32.php
+
+		-
+			message: "#^Method BaseCodeOy\\\\TypeId\\\\Base32\\:\\:encode\\(\\) has parameter \\$src with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Base32.php
+
+		-
+			message: "#^Only booleans are allowed in an if condition, int\\|false given\\.$#"
+			count: 1
+			path: src/SuffixValidator.php
+
+		-
+			message: "#^Undefined variable\\: \\$this$#"
+			count: 1
+			path: tests/Pest.php
+
+		-
+			message: "#^Parameter \\#2 \\$dataset of function dataset expects Closure\\|iterable\\<int\\|string, mixed\\>, mixed given\\.$#"
+			count: 2
+			path: tests/Unit/Datasets.php
