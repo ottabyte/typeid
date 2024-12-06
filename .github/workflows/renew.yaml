@@ -1,0 +1,77 @@
+# https://docs.github.com/en/actions
+
+name: "Renew"
+
+on: # yamllint disable-line rule:truthy
+    schedule:
+        - cron: "0 0 1 1 *"
+
+jobs:
+    license:
+        name: "License"
+
+        runs-on: "ubuntu-latest"
+
+        timeout-minutes: 5
+
+        strategy:
+            matrix:
+                php-version:
+                    - "8.3"
+
+                dependencies:
+                    - "locked"
+
+        steps:
+            - name: "Checkout"
+              uses: "actions/checkout@v4.2.2"
+              with:
+                  token: "${{ secrets.PAT }}"
+
+            - name: "Set up PHP"
+              uses: "shivammathur/setup-php@2.31.1"
+              with:
+                  coverage: "none"
+                  extensions: "bcmath, ctype, curl, dom, exif, fileinfo, gd, iconv, imagick, intl, json, libxml, mbstring, none, opcache, pcntl, pdo, pdo_sqlite, phar, posix, simplexml, soap, sqlite, tokenizer, xml, xmlwriter, zip"
+                  php-version: "${{ matrix.php-version }}"
+
+            - name: "Set up problem matchers for PHP"
+              run: "echo \"::add-matcher::${{ runner.tool_cache }}/php.json\""
+
+            - name: "Validate composer.json and composer.lock"
+              run: "composer validate --ansi --strict"
+
+            - name: "Determine composer cache directory"
+              uses: "basecodeoy/.github/actions/composer/determine-cache-directory@1.0.0"
+
+            - name: "Cache dependencies installed with composer"
+              uses: "actions/cache@v4.1.2"
+              with:
+                  path: "${{ env.COMPOSER_CACHE_DIR }}"
+                  key: "php-${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-${{ hashFiles('composer.lock') }}"
+                  restore-keys: "php-${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-"
+
+            - name: "Install ${{ matrix.dependencies }} dependencies with composer"
+              uses: "basecodeoy/.github/actions/composer/install@1.0.0"
+              with:
+                  dependencies: "${{ matrix.dependencies }}"
+
+            - name: "Cache cache directory for friendsofphp/php-cs-fixer"
+              uses: "actions/cache@v4.1.2"
+              with:
+                  path: ".build/php-cs-fixer"
+                  key: "php-${{ matrix.php-version }}-php-cs-fixer-${{ github.ref_name }}"
+                  restore-keys: |
+                      php-${{ matrix.php-version }}-php-cs-fixer-main
+                      php-${{ matrix.php-version }}-php-cs-fixer-
+
+            - name: "Run friendsofphp/php-cs-fixer"
+              run: "vendor/bin/php-cs-fixer fix --ansi --config=.php-cs-fixer.php --diff --show-progress=dots --verbose"
+
+            - name: "Commit modified files"
+              uses: "stefanzweifel/git-auto-commit-action@v5.0.1"
+              with:
+                  commit_author: "faustbrian <hello@basecode.sh>"
+                  commit_message: "Enhancement: Update license year"
+                  commit_user_email: "hello@basecode.sh"
+                  commit_user_name: "faustbrian"

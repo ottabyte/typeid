@@ -1,0 +1,67 @@
+<?php declare(strict_types=1);
+
+/**
+ * Copyright (C) BaseCode Oy - All Rights Reserved
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
+namespace BaseCodeOy\TypeId;
+
+final readonly class TypeId implements \JsonSerializable, \Stringable
+{
+    public function __construct(
+        private string $prefix,
+        private string $suffix,
+    ) {}
+
+    #[\Override()]
+    public function __toString(): string
+    {
+        if ($this->prefix === '') {
+            return $this->suffix;
+        }
+
+        return $this->prefix.'_'.$this->suffix;
+    }
+
+    public static function fromPrefix(string $prefix): self
+    {
+        if (PrefixValidator::validate($prefix)) {
+            return new self($prefix, Uuid::random()->toBase32());
+        }
+
+        throw PrefixException::invalid($prefix);
+    }
+
+    public static function fromUuid(string $prefix, string $suffix): self
+    {
+        if (PrefixValidator::validate($prefix)) {
+            return new self($prefix, Uuid::fromString($suffix)->toBase32());
+        }
+
+        throw PrefixException::invalid($prefix);
+    }
+
+    public function getPrefix(): string
+    {
+        return $this->prefix;
+    }
+
+    public function getSuffix(): string
+    {
+        return $this->suffix;
+    }
+
+    public function toString(): string
+    {
+        return $this->__toString();
+    }
+
+    #[\Override()]
+    public function jsonSerialize(): string
+    {
+        return $this->__toString();
+    }
+}
