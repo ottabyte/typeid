@@ -22,7 +22,7 @@ jobs:
                   token: "${{ secrets.PAT }}"
 
             - name: "Create release"
-              uses: "basecodeoy/.github/actions/github/release/create@1.0.0"
+              uses: "basecodeoy/.github/actions/github/release/create@1.0.1"
               with:
                   github-token: "${{ secrets.PAT }}"
 
