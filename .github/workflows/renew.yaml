@@ -42,7 +42,7 @@ jobs:
               run: "composer validate --ansi --strict"
 
             - name: "Determine composer cache directory"
-              uses: "basecodeoy/.github/actions/composer/determine-cache-directory@1.0.1"
+              uses: "basecodeoy/.github/actions/composer/determine-cache-directory@1.0.2"
 
             - name: "Cache dependencies installed with composer"
               uses: "actions/cache@v4.2.0"
@@ -52,7 +52,7 @@ jobs:
                   restore-keys: "php-${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-"
 
             - name: "Install ${{ matrix.dependencies }} dependencies with composer"
-              uses: "basecodeoy/.github/actions/composer/install@1.0.1"
+              uses: "basecodeoy/.github/actions/composer/install@1.0.2"
               with:
                   dependencies: "${{ matrix.dependencies }}"
 

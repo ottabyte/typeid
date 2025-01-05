@@ -27,23 +27,23 @@ jobs:
 
         steps:
             - name: "Request review from @faustbrian"
-              uses: "basecodeoy/.github/actions/github/pull-request/request-review@1.0.1"
+              uses: "basecodeoy/.github/actions/github/pull-request/request-review@1.0.2"
               with:
                   github-token: "${{ secrets.PAT }}"
                   reviewer: "faustbrian"
 
             - name: "Assign @faustbrian"
-              uses: "basecodeoy/.github/actions/github/pull-request/add-assignee@1.0.1"
+              uses: "basecodeoy/.github/actions/github/pull-request/add-assignee@1.0.2"
               with:
                   assignee: "faustbrian"
                   github-token: "${{ secrets.PAT }}"
 
             - name: "Approve pull request"
-              uses: "basecodeoy/.github/actions/github/pull-request/approve@1.0.1"
+              uses: "basecodeoy/.github/actions/github/pull-request/approve@1.0.2"
               with:
                   github-token: "${{ secrets.PAT }}"
 
             - name: "Merge pull request"
-              uses: "basecodeoy/.github/actions/github/pull-request/merge@1.0.1"
+              uses: "basecodeoy/.github/actions/github/pull-request/merge@1.0.2"
               with:
                   github-token: "${{ secrets.PAT }}"
